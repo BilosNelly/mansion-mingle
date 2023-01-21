@@ -1,0 +1,74 @@
+{
+    "property": [
+        {
+            "id": 1,
+            "title": "Joelynn",
+            "description": "Roofing (Metal)",
+            "address": [
+                {
+                    "country": "Croatia",
+                    "city": "Split",
+                    "street": "Big road 22",
+                    "zipCode": "34534534"
+                }
+            ],
+            "picture": "http://dummyimage.com/115x100.png/cc0000/ffffff"
+        },
+        {
+            "id": 2,
+            "title": "Agneta",
+            "description": "Roofing (Metal)",
+            "address": [
+                {
+                    "country": "Croatia",
+                    "city": "Split",
+                    "street": "Big road 22",
+                    "zipCode": "34534534"
+                }
+            ],
+            "picture": "http://dummyimage.com/230x100.png/ff4444/ffffff"
+        },
+        {
+            "id": 3,
+            "title": "Larina",
+            "description": "Framing (Steel)",
+            "address": [
+                {
+                    "country": "Croatia",
+                    "city": "Split",
+                    "street": "Big road 22",
+                    "zipCode": "34534534"
+                }
+            ],
+            "picture": "http://dummyimage.com/172x100.png/5fa2dd/ffffff"
+        },
+        {
+            "id": 4,
+            "title": "Washington",
+            "description": "Structural and Misc Steel (Fabrication)",
+            "address": [
+                {
+                    "country": "Croatia",
+                    "city": "Split",
+                    "street": "Big road 22",
+                    "zipCode": "34534534"
+                }
+            ],
+            "picture": "http://dummyimage.com/171x100.png/5fa2dd/ffffff"
+        },
+        {
+            "id": 5,
+            "title": "Budd",
+            "description": "Temp Fencing, Decorative Fencing and Gates",
+            "address": [
+                {
+                    "country": "Croatia",
+                    "city": "Split",
+                    "street": "Big road 22",
+                    "zipCode": "34534534"
+                }
+            ],
+            "picture": "http://dummyimage.com/192x100.png/cc0000/ffffff"
+        }
+    ]
+}

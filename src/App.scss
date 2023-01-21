@@ -1,0 +1,53 @@
+.homepage {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 64px;
+
+  &__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding: 64px;
+  }
+
+  &__searchbar {
+    font-size: 18px;
+
+    &__title {
+      padding: 8px 0;
+    }
+
+    input {
+      width: 300px;
+      min-height: 32px;
+      font-size: 18px;
+      padding-left: 12px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+
+    &__item {
+      display: flex;
+      width: 100%;
+      max-height: 64px;
+      align-items: center;
+      padding: 18px 24px;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+      margin: 8px;
+      
+      &:hover {
+        cursor: pointer;
+      }
+
+      img {
+        width: 50px;
+        height: 50px;
+        padding-right: 24px;
+      }
+    }
+  }
+}
