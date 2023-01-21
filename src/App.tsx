@@ -1,10 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+
 import "./App.scss";
 import _ from "lodash";
 
+const { faker } = require('@faker-js/faker');
+
+const createFakeProperty = () => ({
+  id: faker.datatype.uuid(),
+  title: faker.lorem.word(),
+  description: faker.lorem.sentence(),
+  address: {
+      country: faker.address.country(),
+      city: faker.address.city(),
+      street: faker.address.street(),
+      zipCode: faker.address.zipCode(),
+  },
+  picture: {
+      url: faker.image.abstract()
+  }
+})
+
+const propertyData = [...Array(1000)].map(() => createFakeProperty());
+
 const debouncedHandleSearch = _.debounce((searchTerm: string, setFilteredProperties: any, propertyData: any) => {
   if (searchTerm) {
-    const filteredData = propertyData.property.filter((property: any) => {
+    const filteredData = propertyData.filter((property: any) => {
       return (
         property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         property.description.toLowerCase().includes(searchTerm.toLowerCase())
@@ -12,36 +32,22 @@ const debouncedHandleSearch = _.debounce((searchTerm: string, setFilteredPropert
     });
     setFilteredProperties(filteredData);
   } else {
-    setFilteredProperties(propertyData.property);
+    setFilteredProperties(propertyData);
   }
 }, 500);
 
 export const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [propertyData, setPropertyData] = useState<{ property: Array<{id:number, title:string, description:string, address:Array<{country:string, city:string, street:string, zipCode:string}>, picture:string}> }>({property:[]});
-  const [filteredProperties, setFilteredProperties] = useState(propertyData.property);
-
-  useEffect(() => {
-    fetch("data.json", {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((result) => {
-        setPropertyData(result);
-        setFilteredProperties(result.property);
-      });
-  }, []);
-
+  const [filteredProperties, setFilteredProperties] = useState(propertyData);
 
   const handleSearchTermChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
-    debouncedHandleSearch(e.target.value,setFilteredProperties,propertyData);
-  };
+    if(searchTerm.length){
+        debouncedHandleSearch(e.target.value,setFilteredProperties,propertyData);
+    }else{
+        setFilteredProperties(propertyData)
+    }
+};
 
   return (
     <div className="homepage">
@@ -52,10 +58,18 @@ export const App = () => {
       <div className="homepage__wrapper">
         {filteredProperties.length === 0 ? <div>No properties found with the search criteria</div> : filteredProperties.map((element, index) => (
           <ul className="homepage__list">
-            <li key={index} className="homepage__list__item">
-              <img src={element.picture} />
-              <div>Property title: {element.title}</div>
-              <div>Description: {element.description}</div>
+            <li key={element.id} className="homepage__list__item">
+              <img src={element.picture.url} />
+              <div className="homepage__list__item__content">
+                <div key={element.id} >
+                  <span className="homepage__list__item__title">Property title:</span>
+                  {element.title}
+                </div>
+                <div key={element.id} >
+                  <span className="homepage__list__item__description">Description:</span>
+                  {element.description}
+                </div>
+              </div>
             </li>
           </ul>
         ))}
