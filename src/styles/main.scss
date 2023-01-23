@@ -14,11 +14,4 @@ body {
     flex-direction: column;
     padding: 64px;
     font-family: cera-round-pro, "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  
-    &__wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-      padding: 64px;
-    }
 }

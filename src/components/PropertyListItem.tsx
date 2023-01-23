@@ -1,10 +1,12 @@
+import { IProperty } from "../typings";
+
 interface Props {
-  element: any;
+  propertyDetails: IProperty;
 }
 
 export const PropertyListItem = (props: Props) => {
 
-  const propertyDetail = props.element;
+  const propertyDetail = props.propertyDetails;
 
   return (
     <li key={propertyDetail.id} className="homepage__list__item">

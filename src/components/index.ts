@@ -1,11 +1,11 @@
 import { EmptySearch } from './EmptySearch';
-import { Property } from './Property';
+import { PropertyPreview } from './PropertyPreview';
 import { PropertyListItem } from './PropertyListItem';
 import { Search } from './Search';
 
 export { 
     EmptySearch, 
-    Property, 
+    PropertyPreview, 
     PropertyListItem,
     Search, 
 };

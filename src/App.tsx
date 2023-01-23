@@ -3,31 +3,16 @@ import { Link } from 'react-router-dom';
 import { Routes, Route } from 'react-router'
 import _ from 'lodash';
 
-import { EmptySearch, Property, PropertyListItem, Search } from './components';
+import { getProperty } from './services/getProperties';
+import { EmptySearch, PropertyPreview, PropertyListItem, Search } from './components';
+import { IProperty } from './typings';
 import "./styles/main.scss";
 
-const { faker } = require('@faker-js/faker');
+const propertyData: IProperty[] = [...Array(1000)].map(() => getProperty());
 
-const createFakeProperty = () => ({
-  id: faker.datatype.uuid(),
-  title: faker.lorem.word(),
-  description: faker.lorem.sentence(),
-  address: {
-      country: faker.address.country(),
-      city: faker.address.city(),
-      street: faker.address.street(),
-      zipCode: faker.address.zipCode(),
-  },
-  picture: {
-      url: faker.image.abstract()
-  }
-})
-
-const propertyData = [...Array(1000)].map(() => createFakeProperty());
-
-const debouncedHandleSearch = _.debounce((searchTerm: string, setFilteredProperties: any, propertyData: any) => {
+const debouncedHandleSearch = _.debounce((searchTerm: string, setFilteredProperties: React.Dispatch<React.SetStateAction<IProperty[]>>, propertyData: IProperty[]) => {
   if (searchTerm) {
-    const filteredData = propertyData.filter((property: any) => {
+    const filteredData = propertyData.filter((property: IProperty) => {
       return (
         property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         property.description.toLowerCase().includes(searchTerm.toLowerCase())
@@ -45,6 +30,7 @@ export const App = () => {
 
   const handleSearchTermChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
+
     if(e.target.value.length){
         debouncedHandleSearch(e.target.value,setFilteredProperties,propertyData);
     }else{
@@ -54,23 +40,23 @@ export const App = () => {
 
   return (
     <div className="homepage">
-      <Search searchTerm={searchTerm} onChange={handleSearchTermChange} />
-      <div className="homepage__wrapper">
         <Routes>
-          <Route path="property/:id" element={<Property propertyData={propertyData} />} />
+          <Route path="property/:id" element={<PropertyPreview propertyData={propertyData} />} />
           <Route path="/" element={
-            <ul className="homepage__list">
-              {filteredProperties.length === 0
-                ? <EmptySearch searchTerm={searchTerm} />
-                : filteredProperties.map((element, index) => (
-                  <Link to={`/property/${element.id}`}>
-                    <PropertyListItem element={element} />
-                  </Link>
-                ))}
-            </ul>
+            <>
+              <Search searchTerm={searchTerm} onChange={handleSearchTermChange} />
+              <ul className="homepage__list">
+                {filteredProperties.length === 0
+                  ? <EmptySearch searchTerm={searchTerm} />
+                  : filteredProperties.map((element, index) => (
+                    <Link to={`/property/${element.id}`}>
+                      <PropertyListItem propertyDetails={element} />
+                    </Link>
+                  ))}
+              </ul>
+            </>
           } />
         </Routes>
-      </div>
     </div>
   );
 };
