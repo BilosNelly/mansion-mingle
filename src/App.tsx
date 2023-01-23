@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Routes, Route } from 'react-router'
 import _ from "lodash";
-import { Property, Search } from "./components";
+import { EmptySearch, Property, Search } from "./components";
 import "./App.scss";
 
 const { faker } = require('@faker-js/faker');
@@ -61,7 +61,7 @@ export const App = () => {
         <Route path="property/:id" element={<Property propertyData={propertyData} />} />
         <Route path="/" element={
            <ul className="homepage__list">
-            {filteredProperties.length === 0 ? <div>No properties found with the search criteria</div> : filteredProperties.map((element, index) => (
+            {filteredProperties.length === 0 ? <EmptySearch searchTerm={searchTerm}/> : filteredProperties.map((element, index) => (
               
                 <Link to={`/property/${element.id}`}>
                   <li key={element.id} className="homepage__list__item">
