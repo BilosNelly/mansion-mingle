@@ -1,0 +1,24 @@
+@import "./empty-search.scss";
+@import "./property-list.scss";
+@import "./property.scss";
+@import "./search.scss";
+
+body {
+    background-image: url("../assets/houses-pattern-bg.svg");
+    background-color: #cccccc;
+}
+  
+.homepage {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding: 64px;
+    font-family: cera-round-pro, "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  
+    &__wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      padding: 64px;
+    }
+}

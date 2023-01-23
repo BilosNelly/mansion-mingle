@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Routes, Route } from 'react-router'
-import _ from "lodash";
-import { EmptySearch, Property, Search } from "./components";
-import "./App.scss";
+import _ from 'lodash';
+
+import { EmptySearch, Property, PropertyListItem, Search } from './components';
+import "./styles/main.scss";
 
 const { faker } = require('@faker-js/faker');
 
@@ -49,41 +50,26 @@ export const App = () => {
     }else{
         setFilteredProperties(propertyData)
     }
-};
+  };
 
   return (
     <div className="homepage">
-
       <Search searchTerm={searchTerm} onChange={handleSearchTermChange} />
       <div className="homepage__wrapper">
-
-      <Routes>
-        <Route path="property/:id" element={<Property propertyData={propertyData} />} />
-        <Route path="/" element={
-           <ul className="homepage__list">
-            {filteredProperties.length === 0 ? <EmptySearch searchTerm={searchTerm}/> : filteredProperties.map((element, index) => (
-              
-                <Link to={`/property/${element.id}`}>
-                  <li key={element.id} className="homepage__list__item">
-                    <img src={element.picture.url} />
-                    <div className="homepage__list__item__content">
-                      <div key={element.id} >
-                        <span className="homepage__list__item__title">Property title:</span>
-                        {element.title}
-                      </div>
-                      <div key={element.id} >
-                        <span className="homepage__list__item__description">Description:</span>
-                        {element.description}
-                      </div>
-                    </div>
-                  </li>
-                </Link>
-              
-            ))}
+        <Routes>
+          <Route path="property/:id" element={<Property propertyData={propertyData} />} />
+          <Route path="/" element={
+            <ul className="homepage__list">
+              {filteredProperties.length === 0
+                ? <EmptySearch searchTerm={searchTerm} />
+                : filteredProperties.map((element, index) => (
+                  <Link to={`/property/${element.id}`}>
+                    <PropertyListItem element={element} />
+                  </Link>
+                ))}
             </ul>
-        }/>
-      </Routes>
-      
+          } />
+        </Routes>
       </div>
     </div>
   );
