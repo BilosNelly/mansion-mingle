@@ -12,11 +12,11 @@ export const PropertyListItem = (props: Props) => {
     <li key={propertyDetail.id} className="homepage__list__item">
       <img src={propertyDetail.picture.url} />
       <div className="homepage__list__item__content">
-        <div key={propertyDetail.id} >
+        <div>
           <span className="homepage__list__item__title">Property title:</span>
           {propertyDetail.title}
         </div>
-        <div key={propertyDetail.id} >
+        <div>
           <span className="homepage__list__item__description">Description:</span>
           {propertyDetail.description}
         </div>
