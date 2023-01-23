@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-
-import "./App.scss";
+import { Link } from "react-router-dom";
+import { Routes, Route } from 'react-router'
 import _ from "lodash";
+import { Property, Search } from "./components";
+import "./App.scss";
 
 const { faker } = require('@faker-js/faker');
 
@@ -42,7 +44,7 @@ export const App = () => {
 
   const handleSearchTermChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
-    if(searchTerm.length){
+    if(e.target.value.length){
         debouncedHandleSearch(e.target.value,setFilteredProperties,propertyData);
     }else{
         setFilteredProperties(propertyData)
@@ -51,28 +53,37 @@ export const App = () => {
 
   return (
     <div className="homepage">
-      <div className="homepage__searchbar">
-        <div className="homepage__searchbar__title">What are you searching for?</div>
-        <input type="text" placeholder="Search by title or description" value={searchTerm} onChange={handleSearchTermChange} />
-      </div>
+
+      <Search searchTerm={searchTerm} onChange={handleSearchTermChange} />
       <div className="homepage__wrapper">
-        {filteredProperties.length === 0 ? <div>No properties found with the search criteria</div> : filteredProperties.map((element, index) => (
-          <ul className="homepage__list">
-            <li key={element.id} className="homepage__list__item">
-              <img src={element.picture.url} />
-              <div className="homepage__list__item__content">
-                <div key={element.id} >
-                  <span className="homepage__list__item__title">Property title:</span>
-                  {element.title}
-                </div>
-                <div key={element.id} >
-                  <span className="homepage__list__item__description">Description:</span>
-                  {element.description}
-                </div>
-              </div>
-            </li>
-          </ul>
-        ))}
+
+      <Routes>
+        <Route path="property/:id" element={<Property propertyData={propertyData} />} />
+        <Route path="/" element={
+           <ul className="homepage__list">
+            {filteredProperties.length === 0 ? <div>No properties found with the search criteria</div> : filteredProperties.map((element, index) => (
+              
+                <Link to={`/property/${element.id}`}>
+                  <li key={element.id} className="homepage__list__item">
+                    <img src={element.picture.url} />
+                    <div className="homepage__list__item__content">
+                      <div key={element.id} >
+                        <span className="homepage__list__item__title">Property title:</span>
+                        {element.title}
+                      </div>
+                      <div key={element.id} >
+                        <span className="homepage__list__item__description">Description:</span>
+                        {element.description}
+                      </div>
+                    </div>
+                  </li>
+                </Link>
+              
+            ))}
+            </ul>
+        }/>
+      </Routes>
+      
       </div>
     </div>
   );
