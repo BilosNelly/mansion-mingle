@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -18,3 +19,6 @@ You can view all of the properties in a list and each property is displayed in a
 You can also search for specific properties by their title and description. 
 When you click on a property card, you will be taken to a detailed property page where you can see a larger image, the property's title, description, and address. 
 On the detailed view, the title and description are editable, so you can make changes if necessary.
+=======
+# mansion-mingle
+React+Typescript app
